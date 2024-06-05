@@ -10,10 +10,10 @@
 //!
 //! See https://wbcsd.github.io/data-exchange-protocol/v2 for further details.
 use chrono::{DateTime, Utc};
-use serde::{Deserialize, Serialize};
 use rust_decimal::Decimal;
 use schemars::schema::{ArrayValidation, NumberValidation, Schema, StringValidation};
 use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 use uuid::Uuid;
 
@@ -263,14 +263,14 @@ pub struct VersionInteger(pub i32);
 #[serde(untagged)]
 /// Encoded geographic scope rules of a Spec Version 2 `CarbonFootprint`
 pub enum GeographicScope {
+    #[serde(skip_serializing)]
+    Global,
     #[serde(rename_all = "camelCase")]
     Regional {
         geography_region_or_subregion: UNRegionOrSubregion,
     },
     #[serde(rename_all = "camelCase")]
-    Country {
-        geography_country: ISO3166CC,
-    },
+    Country { geography_country: ISO3166CC },
     #[serde(rename_all = "camelCase")]
     Subdivision {
         geography_country_subdivision: NonEmptyString,
