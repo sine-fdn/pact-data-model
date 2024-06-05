@@ -263,7 +263,6 @@ pub struct VersionInteger(pub i32);
 #[serde(untagged)]
 /// Encoded geographic scope rules of a Spec Version 2 `CarbonFootprint`
 pub enum GeographicScope {
-    Global,
     #[serde(rename_all = "camelCase")]
     Regional {
         geography_region_or_subregion: UNRegionOrSubregion,
