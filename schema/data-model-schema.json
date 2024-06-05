@@ -209,9 +209,6 @@
       "type": "object",
       "anyOf": [
         {
-          "type": "null"
-        },
-        {
           "type": "object",
           "required": [
             "geographyRegionOrSubregion"
