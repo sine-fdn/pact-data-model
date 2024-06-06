@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://spec.openapis.org/oas/3.0/schema/2019-04-02#/definitions/Schema",
   "title": "ProductFootprint",
   "description": "Data Type \"ProductFootprint\" of Tech Spec Version 2",
   "type": "object",
@@ -23,87 +23,75 @@
       "type": "string"
     },
     "companyIds": {
-      "$ref": "#/definitions/CompanyIdSet"
+      "$ref": "#/components/schemas/CompanyIdSet"
     },
     "companyName": {
-      "$ref": "#/definitions/NonEmptyString"
+      "$ref": "#/components/schemas/NonEmptyString"
     },
     "created": {
       "type": "string",
       "format": "date-time"
     },
     "extensions": {
-      "type": [
-        "array",
-        "null"
-      ],
+      "type": "array",
       "items": {
-        "$ref": "#/definitions/DataModelExtension"
-      }
+        "$ref": "#/components/schemas/DataModelExtension"
+      },
+      "nullable": true
     },
     "id": {
-      "$ref": "#/definitions/PfId"
+      "$ref": "#/components/schemas/PfId"
     },
     "pcf": {
-      "$ref": "#/definitions/CarbonFootprint"
+      "$ref": "#/components/schemas/CarbonFootprint"
     },
     "precedingPfIds": {
-      "anyOf": [
+      "allOf": [
         {
-          "$ref": "#/definitions/NonEmptyPfIdVec"
-        },
-        {
-          "type": "null"
+          "$ref": "#/components/schemas/NonEmptyPfIdVec"
         }
-      ]
+      ],
+      "nullable": true
     },
     "productCategoryCpc": {
-      "$ref": "#/definitions/NonEmptyString"
+      "$ref": "#/components/schemas/NonEmptyString"
     },
     "productDescription": {
       "type": "string"
     },
     "productIds": {
-      "$ref": "#/definitions/ProductIdSet"
+      "$ref": "#/components/schemas/ProductIdSet"
     },
     "productNameCompany": {
-      "$ref": "#/definitions/NonEmptyString"
+      "$ref": "#/components/schemas/NonEmptyString"
     },
     "specVersion": {
-      "$ref": "#/definitions/VersionString"
+      "$ref": "#/components/schemas/VersionString"
     },
     "status": {
-      "$ref": "#/definitions/PfStatus"
+      "$ref": "#/components/schemas/PfStatus"
     },
     "statusComment": {
-      "type": [
-        "string",
-        "null"
-      ]
+      "type": "string",
+      "nullable": true
     },
     "updated": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "format": "date-time"
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
     },
     "validityPeriodEnd": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "format": "date-time"
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
     },
     "validityPeriodStart": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "format": "date-time"
+      "type": "string",
+      "format": "date-time",
+      "nullable": true
     },
     "version": {
-      "$ref": "#/definitions/VersionInteger"
+      "$ref": "#/components/schemas/VersionInteger"
     }
   },
   "definitions": {
@@ -119,56 +107,44 @@
           "type": "boolean"
         },
         "boundary": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/AssuranceBoundary"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/AssuranceBoundary"
             }
-          ]
+          ],
+          "nullable": true
         },
         "comments": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string",
+          "nullable": true
         },
         "completedAt": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "date-time"
+          "type": "string",
+          "format": "date-time",
+          "nullable": true
         },
         "coverage": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/AssuranceCoverage"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/AssuranceCoverage"
             }
-          ]
+          ],
+          "nullable": true
         },
         "level": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/AssuranceLevel"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/AssuranceLevel"
             }
-          ]
+          ],
+          "nullable": true
         },
         "providerName": {
           "type": "string"
         },
         "standardName": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string",
+          "nullable": true
         }
       }
     },
@@ -209,16 +185,13 @@
       "type": "object",
       "anyOf": [
         {
-          "type": "null"
-        },
-        {
           "type": "object",
           "required": [
             "geographyRegionOrSubregion"
           ],
           "properties": {
             "geographyRegionOrSubregion": {
-              "$ref": "#/definitions/UNRegionOrSubregion"
+              "$ref": "#/components/schemas/UNRegionOrSubregion"
             }
           }
         },
@@ -229,7 +202,7 @@
           ],
           "properties": {
             "geographyCountry": {
-              "$ref": "#/definitions/ISO3166CC"
+              "$ref": "#/components/schemas/ISO3166CC"
             }
           }
         },
@@ -240,7 +213,7 @@
           ],
           "properties": {
             "geographyCountrySubdivision": {
-              "$ref": "#/definitions/NonEmptyString"
+              "$ref": "#/components/schemas/NonEmptyString"
             }
           }
         }
@@ -265,169 +238,143 @@
       ],
       "properties": {
         "aircraftGhgEmissions": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/PositiveDecimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/PositiveDecimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "allocationRulesDescription": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string",
+          "nullable": true
         },
         "assurance": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/Assurance"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/Assurance"
             }
-          ]
+          ],
+          "nullable": true
         },
         "biogenicAccountingMethodology": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/BiogenicAccountingMethodology"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/BiogenicAccountingMethodology"
             }
-          ]
+          ],
+          "nullable": true
         },
         "biogenicCarbonContent": {
-          "$ref": "#/definitions/PositiveDecimal"
+          "$ref": "#/components/schemas/PositiveDecimal"
         },
         "biogenicCarbonWithdrawal": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/NegativeDecimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/NegativeDecimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "boundaryProcessesDescription": {
           "type": "string"
         },
         "characterizationFactors": {
-          "$ref": "#/definitions/CharacterizationFactors"
+          "$ref": "#/components/schemas/CharacterizationFactors"
         },
         "crossSectoralStandardsUsed": {
-          "$ref": "#/definitions/CrossSectoralStandardSet"
+          "$ref": "#/components/schemas/CrossSectoralStandardSet"
         },
         "dLucGhgEmissions": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/PositiveDecimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/PositiveDecimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "declaredUnit": {
-          "$ref": "#/definitions/DeclaredUnit"
+          "$ref": "#/components/schemas/DeclaredUnit"
         },
         "dqi": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/DataQualityIndicators"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/DataQualityIndicators"
             }
-          ]
+          ],
+          "nullable": true
         },
         "exemptedEmissionsDescription": {
           "type": "string"
         },
         "exemptedEmissionsPercent": {
-          "$ref": "#/definitions/ExemptedEmissionsPercent"
+          "$ref": "#/components/schemas/ExemptedEmissionsPercent"
         },
         "fossilCarbonContent": {
-          "$ref": "#/definitions/PositiveDecimal"
+          "$ref": "#/components/schemas/PositiveDecimal"
         },
         "fossilGhgEmissions": {
-          "$ref": "#/definitions/PositiveDecimal"
+          "$ref": "#/components/schemas/PositiveDecimal"
         },
         "iLucGhgEmissions": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/PositiveDecimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/PositiveDecimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "ipccCharacterizationFactorsSources": {
-          "$ref": "#/definitions/IpccCharacterizationFactorsSources"
+          "$ref": "#/components/schemas/IpccCharacterizationFactorsSources"
         },
         "landManagementGhgEmissions": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/PositiveDecimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/PositiveDecimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "otherBiogenicGhgEmissions": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/PositiveDecimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/PositiveDecimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "pCfExcludingBiogenic": {
-          "$ref": "#/definitions/PositiveDecimal"
+          "$ref": "#/components/schemas/PositiveDecimal"
         },
         "pCfIncludingBiogenic": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/Decimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/Decimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "packagingEmissionsIncluded": {
           "type": "boolean"
         },
         "packagingGhgEmissions": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/PositiveDecimal"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/PositiveDecimal"
             }
-          ]
+          ],
+          "nullable": true
         },
         "primaryDataShare": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/Percent"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/Percent"
             }
-          ]
+          ],
+          "nullable": true
         },
         "productOrSectorSpecificRules": {
-          "$ref": "#/definitions/ProductOrSectorSpecificRuleSet"
+          "$ref": "#/components/schemas/ProductOrSectorSpecificRuleSet"
         },
         "referencePeriodEnd": {
           "type": "string",
@@ -438,23 +385,19 @@
           "format": "date-time"
         },
         "secondaryEmissionFactorSources": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/EmissionFactorDSSet"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/EmissionFactorDSSet"
             }
-          ]
+          ],
+          "nullable": true
         },
         "uncertaintyAssessmentDescription": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string",
+          "nullable": true
         },
         "unitaryProductAmount": {
-          "$ref": "#/definitions/StrictlyPositiveDecimal"
+          "$ref": "#/components/schemas/StrictlyPositiveDecimal"
         }
       }
     },
@@ -513,13 +456,11 @@
           "type": "string"
         },
         "documentation": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string",
+          "nullable": true
         },
         "specVersion": {
-          "$ref": "#/definitions/VersionString"
+          "$ref": "#/components/schemas/VersionString"
         }
       }
     },
@@ -536,22 +477,22 @@
       ],
       "properties": {
         "completenessDQR": {
-          "$ref": "#/definitions/FloatBetween1And3"
+          "$ref": "#/components/schemas/FloatBetween1And3"
         },
         "coveragePercent": {
-          "$ref": "#/definitions/Percent"
+          "$ref": "#/components/schemas/Percent"
         },
         "geographicalDQR": {
-          "$ref": "#/definitions/FloatBetween1And3"
+          "$ref": "#/components/schemas/FloatBetween1And3"
         },
         "reliabilityDQR": {
-          "$ref": "#/definitions/FloatBetween1And3"
+          "$ref": "#/components/schemas/FloatBetween1And3"
         },
         "technologicalDQR": {
-          "$ref": "#/definitions/FloatBetween1And3"
+          "$ref": "#/components/schemas/FloatBetween1And3"
         },
         "temporalDQR": {
-          "$ref": "#/definitions/FloatBetween1And3"
+          "$ref": "#/components/schemas/FloatBetween1And3"
         }
       }
     },
@@ -580,10 +521,10 @@
       ],
       "properties": {
         "name": {
-          "$ref": "#/definitions/NonEmptyString"
+          "$ref": "#/components/schemas/NonEmptyString"
         },
         "version": {
-          "$ref": "#/definitions/NonEmptyString"
+          "$ref": "#/components/schemas/NonEmptyString"
         }
       }
     },
@@ -597,10 +538,10 @@
         ],
         "properties": {
           "name": {
-            "$ref": "#/definitions/NonEmptyString"
+            "$ref": "#/components/schemas/NonEmptyString"
           },
           "version": {
-            "$ref": "#/definitions/NonEmptyString"
+            "$ref": "#/components/schemas/NonEmptyString"
           }
         }
       },
@@ -703,20 +644,18 @@
       ],
       "properties": {
         "operator": {
-          "$ref": "#/definitions/ProductOrSectorSpecificRuleOperator"
+          "$ref": "#/components/schemas/ProductOrSectorSpecificRuleOperator"
         },
         "otherOperatorName": {
-          "anyOf": [
+          "allOf": [
             {
-              "$ref": "#/definitions/NonEmptyString"
-            },
-            {
-              "type": "null"
+              "$ref": "#/components/schemas/NonEmptyString"
             }
-          ]
+          ],
+          "nullable": true
         },
         "ruleNames": {
-          "$ref": "#/definitions/NonEmptyStringVec"
+          "$ref": "#/components/schemas/NonEmptyStringVec"
         }
       }
     },
@@ -738,20 +677,18 @@
         ],
         "properties": {
           "operator": {
-            "$ref": "#/definitions/ProductOrSectorSpecificRuleOperator"
+            "$ref": "#/components/schemas/ProductOrSectorSpecificRuleOperator"
           },
           "otherOperatorName": {
-            "anyOf": [
+            "allOf": [
               {
-                "$ref": "#/definitions/NonEmptyString"
-              },
-              {
-                "type": "null"
+                "$ref": "#/components/schemas/NonEmptyString"
               }
-            ]
+            ],
+            "nullable": true
           },
           "ruleNames": {
-            "$ref": "#/definitions/NonEmptyStringVec"
+            "$ref": "#/components/schemas/NonEmptyStringVec"
           }
         }
       },

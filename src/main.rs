@@ -1,11 +1,15 @@
 use pact_data_model::*;
-use schemars::schema_for;
+use schemars::gen::{SchemaGenerator, SchemaSettings};
 use serde_json::to_string_pretty;
 use std::fs::File;
 use std::io::{Error, Write};
 
 fn main() -> Result<(), Error> {
-    let schema = schema_for!(ProductFootprint);
+    let openapi_settings = SchemaSettings::openapi3();
+
+    let schema_generator = SchemaGenerator::from(openapi_settings);
+
+    let schema = schema_generator.into_root_schema_for::<ProductFootprint>();
 
     let mut schema_json = to_string_pretty(&schema).expect("Failed to serialize schema");
 
