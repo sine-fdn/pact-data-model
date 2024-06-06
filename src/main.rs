@@ -7,7 +7,11 @@ use std::io::{Error, Write};
 fn main() -> Result<(), Error> {
     let schema = schema_for!(ProductFootprint);
 
-    let schema_json = to_string_pretty(&schema).expect("Failed to serialize schema");
+    let mut schema_json = to_string_pretty(&schema).expect("Failed to serialize schema");
+
+    if !schema_json.ends_with('\n') {
+        schema_json.push('\n');
+    }
 
     let mut file = File::create("./schema/data-model-schema.json")?;
 

@@ -14,12 +14,15 @@ jobs:
           cargo test
           cargo clippy -- -Dwarnings
 
-  generate_schema:
+  validate_schema:
     runs-on: ubuntu-latest
     needs: build_and_test
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      - name: Generate schema
+      - name: Test schema
         run: |
+            cp schema/data-model-schema.json schema/data-model-schema.json.orig
             cargo run
+            # assert the generated and versioned file equal
+            diff -u schema/data-model-schema.json schema/data-model-schema.json.orig
