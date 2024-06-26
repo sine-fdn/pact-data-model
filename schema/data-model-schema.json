@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "ProductFootprint",
+  "title": "ProductFootprint_for_AnyValue",
   "description": "Data Type \"ProductFootprint\" of Tech Spec Version 2",
   "type": "object",
   "required": [
@@ -38,7 +38,7 @@
         "null"
       ],
       "items": {
-        "$ref": "#/definitions/DataModelExtension"
+        "$ref": "#/definitions/DataModelExtension_for_AnyValue"
       }
     },
     "id": {
@@ -497,7 +497,7 @@
       "minItems": 1,
       "uniqueItems": true
     },
-    "DataModelExtension": {
+    "DataModelExtension_for_AnyValue": {
       "type": "object",
       "required": [
         "data",
@@ -505,10 +505,7 @@
         "specVersion"
       ],
       "properties": {
-        "data": {
-          "type": "object",
-          "additionalProperties": true
-        },
+        "data": true,
         "dataSchema": {
           "type": "string"
         },
