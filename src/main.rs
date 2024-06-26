@@ -1,11 +1,11 @@
 use pact_data_model::*;
 use schemars::schema_for;
-use serde_json::to_string_pretty;
+use serde_json::{to_string_pretty, Value};
 use std::fs::File;
 use std::io::{Error, Write};
 
 fn main() -> Result<(), Error> {
-    let schema = schema_for!(ProductFootprint);
+    let schema = schema_for!(ProductFootprint<Value>);
 
     let schema_json = to_string_pretty(&schema).expect("Failed to serialize schema");
 

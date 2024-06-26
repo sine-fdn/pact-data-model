@@ -10,17 +10,16 @@
 //!
 //! See https://wbcsd.github.io/data-exchange-protocol/v2 for further details.
 use chrono::{DateTime, Utc};
-use serde::{Deserialize, Serialize};
 use rust_decimal::Decimal;
 use schemars::schema::{ArrayValidation, NumberValidation, Schema, StringValidation};
 use schemars::JsonSchema;
-use serde_json::{Map, Value};
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Debug, Serialize, Deserialize, Clone, JsonSchema, PartialEq)]
 #[serde(rename_all = "camelCase")]
 /// Data Type "ProductFootprint" of Tech Spec Version 2
-pub struct ProductFootprint {
+pub struct ProductFootprint<T> {
     pub id: PfId,
     pub spec_version: SpecVersionString,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -47,7 +46,7 @@ pub struct ProductFootprint {
     pub pcf: CarbonFootprint,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub extensions: Option<Vec<DataModelExtension>>,
+    pub extensions: Option<Vec<DataModelExtension<T>>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, JsonSchema, PartialEq)]
@@ -435,12 +434,12 @@ pub enum AssuranceBoundary {
 
 #[derive(Debug, Serialize, Deserialize, Clone, JsonSchema, PartialEq)]
 #[serde(rename_all = "camelCase")]
-pub struct DataModelExtension {
+pub struct DataModelExtension<T> {
     pub spec_version: SpecVersionString,
     pub data_schema: String, // Replace String with URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub documentation: Option<String>, // Replace String with URL
-    pub data: Map<String, Value>,
+    pub data: T,
 }
 
 impl From<String> for IpccCharacterizationFactorsSource {
