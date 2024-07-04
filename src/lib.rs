@@ -210,7 +210,7 @@ pub struct ExemptedEmissionsPercent(pub f64);
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
-pub struct WrappedDecimal(Decimal);
+pub struct WrappedDecimal(pub Decimal);
 
 /// a f64 in the 0..100 range
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
