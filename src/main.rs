@@ -5,7 +5,9 @@ use std::fs::File;
 use std::io::{Error, Write};
 
 fn main() -> Result<(), Error> {
-    let openapi_settings = SchemaSettings::openapi3();
+    let mut openapi_settings = SchemaSettings::draft07();
+
+    openapi_settings.option_nullable = true;
 
     let schema_generator = SchemaGenerator::from(openapi_settings);
 
