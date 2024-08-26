@@ -61,8 +61,8 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
                 "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
@@ -92,8 +92,8 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
                 "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
@@ -131,8 +131,8 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
                 "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
@@ -173,8 +173,8 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
                 "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
