@@ -83,7 +83,7 @@ pub struct CarbonFootprint {
     pub ipcc_characterization_factors_sources: IpccCharacterizationFactorsSources,
 
     pub cross_sectoral_standards_used: CrossSectoralStandardSet,
-    pub product_or_sector_specific_rules: ProductOrSectorSpecificRuleSet,
+    pub product_or_sector_specific_rules: Option<ProductOrSectorSpecificRuleSet>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub biogenic_accounting_methodology: Option<BiogenicAccountingMethodology>,
