@@ -83,7 +83,7 @@ pub struct CarbonFootprint {
     pub ipcc_characterization_factors_sources: IpccCharacterizationFactorsSources,
 
     pub cross_sectoral_standards_used: CrossSectoralStandardSet,
-    pub product_or_sector_specific_rules: ProductOrSectorSpecificRuleSet,
+    pub product_or_sector_specific_rules: Option<ProductOrSectorSpecificRuleSet>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub biogenic_accounting_methodology: Option<BiogenicAccountingMethodology>,
@@ -161,12 +161,22 @@ pub enum DeclaredUnit {
 #[derive(Debug, Serialize, Deserialize, Clone, Copy, JsonSchema, PartialEq)]
 /// Data Type "CrossSectoralStandard" of Spec Version 2
 pub enum CrossSectoralStandard {
-    #[serde(rename = "GHG Protocol Product standard")]
+    #[serde(rename = "GHGP Product")]
     Ghgp,
-    #[serde(rename = "ISO Standard 14067")]
+    #[serde(rename = "ISO14067")]
     ISO14067,
-    #[serde(rename = "ISO Standard 14044")]
+    #[serde(rename = "ISO14044")]
     ISO14044,
+    #[serde(rename = "ISO14083")]
+    ISO14083,
+    #[serde(rename = "ISO14040-44")]
+    ISO14040_44,
+    #[serde(rename = "PEF")]
+    Pef,
+    #[serde(rename = "PACT Methodology 3.0")] // TODO: support also other versions
+    PactMethodology,
+    #[serde(rename = "PAS2050")]
+    Pas2050,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Copy, JsonSchema, PartialEq)]

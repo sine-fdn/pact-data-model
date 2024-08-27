@@ -1,11 +1,10 @@
-use pact_data_model::*;
 use chrono::{TimeZone, Utc};
+use pact_data_model::*;
 use rust_decimal::prelude::FromPrimitive;
 use rust_decimal::Decimal;
 
 #[test]
 fn test_deser_geography() {
-
     let cf = CarbonFootprint {
         declared_unit: DeclaredUnit::Kilogram,
         unitary_product_amount: StrictlyPositiveDecimal(Decimal::from_f64(1.0).unwrap()),
@@ -28,7 +27,7 @@ fn test_deser_geography() {
             CrossSectoralStandard::Ghgp,
             CrossSectoralStandard::ISO14044,
         ]),
-        product_or_sector_specific_rules: ProductOrSectorSpecificRuleSet(vec![]),
+        product_or_sector_specific_rules: None,
         biogenic_accounting_methodology: None,
         boundary_processes_description: String::from(""),
         reference_period_start: Utc.with_ymd_and_hms(2021, 1, 1, 00, 00, 00).unwrap(),
@@ -61,10 +60,9 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
-                "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
                 "referencePeriodStart": "2021-01-01T00:00:00Z",
                 "referencePeriodEnd": "2022-01-01T00:00:00Z",
@@ -92,10 +90,9 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
-                "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
                 "referencePeriodStart": "2021-01-01T00:00:00Z",
                 "referencePeriodEnd": "2022-01-01T00:00:00Z",
@@ -131,10 +128,9 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
-                "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
                 "referencePeriodStart": "2021-01-01T00:00:00Z",
                 "referencePeriodEnd": "2022-01-01T00:00:00Z",
@@ -173,10 +169,9 @@ fn test_deser_geography() {
                 "AR6"
                 ],
                 "crossSectoralStandardsUsed": [
-                "GHG Protocol Product standard",
-                "ISO Standard 14044"
+                "GHGP Product",
+                "ISO14044"
                 ],
-                "productOrSectorSpecificRules": [],
                 "boundaryProcessesDescription": "",
                 "referencePeriodStart": "2021-01-01T00:00:00Z",
                 "referencePeriodEnd": "2022-01-01T00:00:00Z",
