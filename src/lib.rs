@@ -14,7 +14,6 @@ use rust_decimal::Decimal;
 use schemars::schema::{ArrayValidation, NumberValidation, Schema, StringValidation};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use serde_json::{Map, Value};
 use uuid::Uuid;
 
 #[derive(Debug, Serialize, Deserialize, Clone, JsonSchema, PartialEq)]
