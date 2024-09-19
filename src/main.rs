@@ -5,8 +5,11 @@ use std::fs::File;
 use std::io::{Error, Write};
 
 fn main() -> Result<(), Error> {
-    let schema = schema_for!(ProductFootprint<Value>);
+    let mut schema = schema_for!(ProductFootprint<Value>);
 
+    if let Some(metadata) = schema.schema.metadata.as_mut() {
+        metadata.title = Some("ProductFootprint".to_string());
+    }
     let schema_json = to_string_pretty(&schema).expect("Failed to serialize schema");
 
     let mut file = File::create("./schema/data-model-schema.json")?;

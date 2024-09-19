@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "ProductFootprint_for_AnyValue",
+  "title": "ProductFootprint",
   "description": "Data Type \"ProductFootprint\" of Tech Spec Version 2",
   "type": "object",
   "required": [
@@ -38,7 +38,7 @@
         "null"
       ],
       "items": {
-        "$ref": "#/definitions/DataModelExtension_for_AnyValue"
+        "$ref": "#/definitions/DataModelExtension"
       }
     },
     "id": {
@@ -258,7 +258,6 @@
         "ipccCharacterizationFactorsSources",
         "pCfExcludingBiogenic",
         "packagingEmissionsIncluded",
-        "productOrSectorSpecificRules",
         "referencePeriodEnd",
         "referencePeriodStart",
         "unitaryProductAmount"
@@ -427,7 +426,14 @@
           ]
         },
         "productOrSectorSpecificRules": {
-          "$ref": "#/definitions/ProductOrSectorSpecificRuleSet"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ProductOrSectorSpecificRuleSet"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "referencePeriodEnd": {
           "type": "string",
@@ -478,9 +484,14 @@
       "description": "Data Type \"CrossSectoralStandard\" of Spec Version 2",
       "type": "string",
       "enum": [
-        "GHG Protocol Product standard",
-        "ISO Standard 14067",
-        "ISO Standard 14044"
+        "GHGP Product",
+        "ISO14067",
+        "ISO14044",
+        "ISO14083",
+        "ISO14040-44",
+        "PEF",
+        "PACT Methodology 3.0",
+        "PAS2050"
       ]
     },
     "CrossSectoralStandardSet": {
@@ -489,15 +500,20 @@
         "description": "Data Type \"CrossSectoralStandard\" of Spec Version 2",
         "type": "string",
         "enum": [
-          "GHG Protocol Product standard",
-          "ISO Standard 14067",
-          "ISO Standard 14044"
+          "GHGP Product",
+          "ISO14067",
+          "ISO14044",
+          "ISO14083",
+          "ISO14040-44",
+          "PEF",
+          "PACT Methodology 3.0",
+          "PAS2050"
         ]
       },
       "minItems": 1,
       "uniqueItems": true
     },
-    "DataModelExtension_for_AnyValue": {
+    "DataModelExtension": {
       "type": "object",
       "required": [
         "data",
@@ -505,7 +521,10 @@
         "specVersion"
       ],
       "properties": {
-        "data": true,
+        "data": {
+          "type": "object",
+          "additionalProperties": true
+        },
         "dataSchema": {
           "type": "string"
         },

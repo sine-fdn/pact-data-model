@@ -9,9 +9,14 @@
 //! emission data at product level.
 //!
 //! See https://wbcsd.github.io/data-exchange-protocol/v2 for further details.
+use std::collections::{BTreeMap, BTreeSet};
+
 use chrono::{DateTime, Utc};
 use rust_decimal::Decimal;
-use schemars::schema::{ArrayValidation, NumberValidation, Schema, StringValidation};
+use schemars::schema::{
+    ArrayValidation, InstanceType, NumberValidation, ObjectValidation, Schema,
+    SchemaObject, SingleOrVec, StringValidation,
+};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
@@ -19,7 +24,7 @@ use uuid::Uuid;
 #[derive(Debug, Serialize, Deserialize, Clone, JsonSchema, PartialEq)]
 #[serde(rename_all = "camelCase")]
 /// Data Type "ProductFootprint" of Tech Spec Version 2
-pub struct ProductFootprint<T> {
+pub struct ProductFootprint<T: JsonSchema> {
     pub id: PfId,
     pub spec_version: SpecVersionString,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -441,13 +446,14 @@ pub enum AssuranceBoundary {
     CradleToGate,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, JsonSchema, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
-pub struct DataModelExtension<T> {
+pub struct DataModelExtension<T: JsonSchema> {
     pub spec_version: SpecVersionString,
     pub data_schema: String, // Replace String with URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub documentation: Option<String>, // Replace String with URL
+
     pub data: T,
 }
 
@@ -881,6 +887,67 @@ impl JsonSchema for PfId {
         } else {
             panic!("Unrecognized String base schema");
         }
+    }
+}
+
+impl<T: JsonSchema> JsonSchema for DataModelExtension<T> {
+    fn schema_name() -> String {
+        "DataModelExtension".into()
+    }
+
+    fn json_schema(_gen: &mut schemars::gen::SchemaGenerator) -> Schema {
+        let mut properties = BTreeMap::new();
+        properties.insert(
+            "data".to_string(),
+            Schema::Object(SchemaObject {
+                instance_type: Some(InstanceType::Object.into()),
+                object: Some(Box::new(ObjectValidation {
+                    additional_properties: Some(Box::new(Schema::Bool(true))),
+                    ..Default::default()
+                })),
+                ..Default::default()
+            }),
+        );
+
+        properties.insert(
+            "dataSchema".to_string(),
+            Schema::Object(SchemaObject {
+                instance_type: Some(InstanceType::String.into()),
+                ..Default::default()
+            }),
+        );
+        properties.insert(
+            "documentation".to_string(),
+            Schema::Object(SchemaObject {
+                instance_type: Some(SingleOrVec::Vec(vec![
+                    InstanceType::String,
+                    InstanceType::Null,
+                ])),
+                ..Default::default()
+            }),
+        );
+        properties.insert(
+            "specVersion".to_string(),
+            Schema::Object(SchemaObject {
+                reference: Some("#/definitions/VersionString".to_string()),
+                ..Default::default()
+            }),
+        );
+        let schema_object = SchemaObject {
+            instance_type: Some(InstanceType::Object.into()),
+            object: Some(Box::new(ObjectValidation {
+                properties,
+                required: BTreeSet::from_iter(vec![
+                    "data".to_string(),
+                    "dataSchema".to_string(),
+                    "specVersion".to_string(),
+                ]),
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+
+        Schema::Object(schema_object)
     }
 }
 
