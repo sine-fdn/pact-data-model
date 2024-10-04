@@ -258,7 +258,6 @@
         "ipccCharacterizationFactorsSources",
         "pCfExcludingBiogenic",
         "packagingEmissionsIncluded",
-        "productOrSectorSpecificRules",
         "referencePeriodEnd",
         "referencePeriodStart",
         "unitaryProductAmount"
@@ -427,7 +426,14 @@
           ]
         },
         "productOrSectorSpecificRules": {
-          "$ref": "#/definitions/ProductOrSectorSpecificRuleSet"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ProductOrSectorSpecificRuleSet"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "referencePeriodEnd": {
           "type": "string",
@@ -478,9 +484,14 @@
       "description": "Data Type \"CrossSectoralStandard\" of Spec Version 2",
       "type": "string",
       "enum": [
-        "GHG Protocol Product standard",
-        "ISO Standard 14067",
-        "ISO Standard 14044"
+        "GHGP Product",
+        "ISO14067",
+        "ISO14044",
+        "ISO14083",
+        "ISO14040-44",
+        "PEF",
+        "PACT Methodology 3.0",
+        "PAS2050"
       ]
     },
     "CrossSectoralStandardSet": {
@@ -489,9 +500,14 @@
         "description": "Data Type \"CrossSectoralStandard\" of Spec Version 2",
         "type": "string",
         "enum": [
-          "GHG Protocol Product standard",
-          "ISO Standard 14067",
-          "ISO Standard 14044"
+          "GHGP Product",
+          "ISO14067",
+          "ISO14044",
+          "ISO14083",
+          "ISO14040-44",
+          "PEF",
+          "PACT Methodology 3.0",
+          "PAS2050"
         ]
       },
       "minItems": 1,
