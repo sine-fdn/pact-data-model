@@ -453,7 +453,7 @@ pub struct DataModelExtension<T: JsonSchema> {
     pub data_schema: String, // Replace String with URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub documentation: Option<String>, // Replace String with URL
-
+    #[serde(flatten)]
     pub data: T,
 }
 
