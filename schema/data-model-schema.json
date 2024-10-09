@@ -522,17 +522,13 @@
       ],
       "properties": {
         "data": {
-          "type": "object",
-          "additionalProperties": true
+          "type": "object"
         },
         "dataSchema": {
           "type": "string"
         },
         "documentation": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": "string"
         },
         "specVersion": {
           "$ref": "#/definitions/VersionString"

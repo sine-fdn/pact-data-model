@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 chrono = { version = "0.4", features = ["serde"] }
-schemars = { version = "0.8", features = ["chrono"] }
+schemars = { version = "0.8.21", features = ["chrono"] }
 rust_decimal = "1.35.0"
 uuid = { version = "1.8", features = ["v4", "serde"] }
 serde = { version = "1.0.203", features = ["derive"] }

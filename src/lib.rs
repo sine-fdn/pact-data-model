@@ -9,13 +9,10 @@
 //! emission data at product level.
 //!
 //! See https://wbcsd.github.io/data-exchange-protocol/v2 for further details.
-use std::collections::{BTreeMap, BTreeSet};
-
 use chrono::{DateTime, Utc};
 use rust_decimal::Decimal;
 use schemars::schema::{
-    ArrayValidation, InstanceType, NumberValidation, ObjectValidation, Schema,
-    SchemaObject, SingleOrVec, StringValidation,
+    ArrayValidation, InstanceType, NumberValidation, Schema, SchemaObject, StringValidation,
 };
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -453,7 +450,6 @@ pub struct DataModelExtension<T: JsonSchema> {
     pub data_schema: String, // Replace String with URL
     #[serde(skip_serializing_if = "Option::is_none")]
     pub documentation: Option<String>, // Replace String with URL
-
     pub data: T,
 }
 
@@ -892,60 +888,56 @@ impl JsonSchema for PfId {
 
 impl<T: JsonSchema> JsonSchema for DataModelExtension<T> {
     fn schema_name() -> String {
-        "DataModelExtension".into()
+        "DataModelExtension".to_string()
     }
 
-    fn json_schema(_gen: &mut schemars::gen::SchemaGenerator) -> Schema {
-        let mut properties = BTreeMap::new();
-        properties.insert(
-            "data".to_string(),
-            Schema::Object(SchemaObject {
-                instance_type: Some(InstanceType::Object.into()),
-                object: Some(Box::new(ObjectValidation {
-                    additional_properties: Some(Box::new(Schema::Bool(true))),
-                    ..Default::default()
-                })),
-                ..Default::default()
-            }),
-        );
-
-        properties.insert(
-            "dataSchema".to_string(),
-            Schema::Object(SchemaObject {
-                instance_type: Some(InstanceType::String.into()),
-                ..Default::default()
-            }),
-        );
-        properties.insert(
-            "documentation".to_string(),
-            Schema::Object(SchemaObject {
-                instance_type: Some(SingleOrVec::Vec(vec![
-                    InstanceType::String,
-                    InstanceType::Null,
-                ])),
-                ..Default::default()
-            }),
-        );
-        properties.insert(
-            "specVersion".to_string(),
-            Schema::Object(SchemaObject {
-                reference: Some("#/definitions/VersionString".to_string()),
-                ..Default::default()
-            }),
-        );
-        let schema_object = SchemaObject {
+    fn json_schema(gen: &mut schemars::gen::SchemaGenerator) -> Schema {
+        let mut schema_object = SchemaObject {
             instance_type: Some(InstanceType::Object.into()),
-            object: Some(Box::new(ObjectValidation {
-                properties,
-                required: BTreeSet::from_iter(vec![
-                    "data".to_string(),
-                    "dataSchema".to_string(),
-                    "specVersion".to_string(),
-                ]),
-                ..Default::default()
-            })),
             ..Default::default()
         };
+
+        schema_object.object().required.insert("data".to_owned());
+        schema_object
+            .object()
+            .required
+            .insert("dataSchema".to_owned());
+        schema_object
+            .object()
+            .required
+            .insert("specVersion".to_owned());
+
+        schema_object.object().properties.insert(
+            "data".to_owned(),
+            SchemaObject {
+                instance_type: Some(InstanceType::Object.into()),
+                ..Default::default()
+            }
+            .into(),
+        );
+
+        schema_object.object().properties.insert(
+            "dataSchema".to_owned(),
+            SchemaObject {
+                instance_type: Some(InstanceType::String.into()),
+                ..Default::default()
+            }
+            .into(),
+        );
+
+        schema_object.object().properties.insert(
+            "documentation".to_owned(),
+            SchemaObject {
+                instance_type: Some(InstanceType::String.into()),
+                ..Default::default()
+            }
+            .into(),
+        );
+
+        schema_object.object().properties.insert(
+            "specVersion".to_owned(),
+            gen.subschema_for::<SpecVersionString>(),
+        );
 
         Schema::Object(schema_object)
     }
